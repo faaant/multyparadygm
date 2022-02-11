@@ -22,6 +22,18 @@ int main()
             goto endOfReading;
         }
 
+        index = 0;
+        toLowerCase:
+            if (!word[index]){
+                goto endLowerCase;
+            }
+            if (word[index]>='A' && word[index]<= 'Z'){
+                word[index] += 32;
+            }
+            index ++;
+            goto toLowerCase;
+        endLowerCase:
+
         //check forbidden words
         index = 4;
         checkForbidden:
@@ -34,18 +46,6 @@ int main()
             index--;
             goto checkForbidden;
         endCheckForbidden:
-
-        index = 0;
-        toLowerCase:
-            if (!word[index]){
-                goto endLowerCase;
-            }
-            if (word[index]>='A' && word[index]<= 'Z'){
-                word[index] += 32;
-            }
-            index ++;
-            goto toLowerCase;
-        endLowerCase:
 
         //if wordsArrLength >= n  -->  increase n and recomplete arr
         if (wordsArrayLength >= n) {
