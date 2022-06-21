@@ -20,18 +20,18 @@ fun get_substitutions1(listOfLists: string list list, s: string) =
      NONE => get_substitutions1(arr, s) 
      | SOME arrWithoutS => arrWithoutS @ get_substitutions1(arr,s);
 
+get_substitutions1([["Fred","Fredrick"],["Jeff","Jeffrey"],["Geoff","Jeff","Jeffrey"]], "Jeff");
+
 fun get_substitutions2(listOfLists: string list list, s: string) =
-   let fun f(acc: string list list, s: string) = 
-      case listOfLists of
-      [] => [] 
-      | shifted_arr::arr => case all_except_option(s,shifted_arr) of
-         NONE => get_substitutions1(arr, s) 
-         | SOME arrWithoutS => arrWithoutS @ get_substitutions1(arr,s);
+   let fun f (acc: string list list, s: string) = 
+      case acc of [] => [] 
+      | shifted_arr::arr => case all_except_option(s,shifted_arr) of NONE => f(arr, s) 
+         | SOME arrWithoutS => arrWithoutS @ f(arr,s);
    in
       f(listOfLists,s)
-   end
+   end;
 
-
+get_substitutions2([["Fred","Fredrick"],["Jeff","Jeffrey"],["Geoff","Jeff","Jeffrey"]], "Jeff");
    
 fun similar_names(listOfLists: string list list, fullName:{first:string,middle:string,last:string}) =
     let 
