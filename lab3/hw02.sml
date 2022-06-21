@@ -82,9 +82,10 @@ card_value((Clubs, Num 8));
 fun remove_card (cs: card list, c : card, e) = 
    case cs of 
       [] => raise e
-      | ca::cs' => if ca=c then cs' else remove_card(cs',c,e);
+      | ca::cs' => if ca=c then cs' else ca::remove_card(cs',c,e);
 
 remove_card([(Hearts, Ace), (Diamonds, Num 3), (Hearts, Ace)], (Hearts,Ace), IllegalMove);
+remove_card([(Diamonds, Num 3), (Hearts, Ace), (Hearts, Queen)], (Hearts,Ace), IllegalMove);
 
 fun all_same_color (cs : card list) = 
    case cs of 
